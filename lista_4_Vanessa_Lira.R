@@ -1,8 +1,8 @@
 # Lista 4
 
-# Exercício 1:
+# Exercicio 1: https://github.com/vanessahlira/AD-UFPE-2019-Vanessa.git
 
-# Exercício 2
+# Exercicio 2
 
 # Carregando os pacotes
 library(ffbase) 
@@ -13,8 +13,8 @@ library(dplyr)
 install.packages("magrittr")
 library(magrittr)
 
-# Definindo diretório
-setwd("C:/Users/Dell/OneDrive/Acadêmico/Doutorado/2. Análise de Dados/R/AD-UFPE-2019-Vanessa")
+# Definindo diretorio
+setwd("C:/Users/Dell/OneDrive/Acad?mico/Doutorado/2. An?lise de Dados/R/AD-UFPE-2019-Vanessa")
 
 # Carregando base de dados docentes (censo escolar 2016)
 load("docentes_pe_censo_escolar_2016.RData")
@@ -39,10 +39,10 @@ head(docentes_pe$CO_MUNICIPIO)
 table(docentes_pe$CO_MUNICIPIO)
 docentes_pe$CO_MUNICIPIO
 
-# Para identificar o nome da variável de interesse (idade dos docentes)
+# Para identificar o nome da variavel de interesse (idade dos docentes)
 names(docentes_pe)
 
-# Sabemos que o nome da variável é NU_IDADE
+# Sabemos que o nome da variavel e NU_IDADE
 
 # Para restringir as idades dos docentes entre 18 e 70 anos:
 docentes_pe_selecao <- docentes_pe %>% filter(NU_IDADE >= 18 & NU_IDADE <= 70)
@@ -80,7 +80,7 @@ View(docentes_matricula)
 docentes_alunos <- mutate(docentes_matricula, aluno_docente = n_alunos/n_docentes)
 View(docentes_alunos)
 
-# Estatistica descritiva do número de alunos por docente nos municípios de PE
+# Estatistica descritiva do numero de alunos por docente nos municipios de PE
 summary(docentes_alunos$aluno_docente)
 
 # Min. - 4.431 
@@ -90,10 +90,10 @@ summary(docentes_alunos$aluno_docente)
 # 3rd Qu. - 6.584  
 # Max. - 9.557 
          
-# Média Aritmética é de 6.042907
+# Media Aritmetica de 6.042907
 mean(docentes_alunos$aluno_docente)
 
-# Mediana é de 5.945007
+# Mediana de 5.945007
 median(docentes_alunos$aluno_docente)
 
 # Moda
@@ -121,21 +121,21 @@ quantile(docentes_alunos$aluno_docente, probs = seq(0,1, .1))
 # 100% - 9.556772
   
 
-# Medidas de dispersão
+# Medidas de dispersao
 
 # Amplitude de 5.125809
 max(docentes_alunos$aluno_docente) - min(docentes_alunos$aluno_docente)
 
-# Variância de 0.7739116
+# Variancia de 0.7739116
 var(docentes_alunos$aluno_docente)
 
-# Desvio padrão de 0.8797225
+# Desvio padrao de 0.8797225
 sd(docentes_alunos$aluno_docente)
 
-# Coeficiente de variação de 14.55794
+# Coeficiente de variacaoo de 14.55794
 100*0.8797225/6.042907
 
-# Para saber o município com maior número de alunos por docente e seu IDHM:
+# Para saber o municipio com maior numero de alunos por docente e seu IDHM:
 
 # Carregando dados do PNUD
 install.packages("readxl")
@@ -153,7 +153,7 @@ View(pnud_idh_pe)
 names(pnud_idh_pe)
 
 # Selecionando apenas as variaveis de interesse (IDHM, COdmun7)
-docentes_alunos_idh <- pnud_idh_pe %>% select (IDHM, Codmun7)
+docentes_alunos_idh <- pnud_idh_pe %>% select (IDHM, Codmun7, Munic?pio)
 View(docentes_alunos_idh)
 
 # Juntando com a base de dados docentes_alunos atraves da variavel Codmun7 com CO_MUNICIPIO
@@ -165,7 +165,7 @@ View(docentes_alunos_idh2)
 
 save (docentes_alunos_idh2, file = "docentes_alunos_idh2_censo_pnud_pe.RData")
 
-# Municipio com maior número de alunos por docente
+# Municipio com maior numero de alunos por docente
 
 max(docentes_alunos_idh2$aluno_docente)
 # [1] 9.556772
@@ -173,36 +173,45 @@ max(docentes_alunos_idh2$aluno_docente)
 # Ao buscar na base de dados o numero acima (9.556772) na variavel aluno_docente, 
 # encontramos que o mesmo corresponde ao municipio de codigo 2615805.
 View(docentes_alunos_idh2)
-# Logo, o município que apresenta maior número de alunos por docente é Tupanatinga.
-# Seu IDHM é 0.519.
-# Toda a identificação foi feita através da visualização do data frama através do comando View().
+# Logo, o municipio que apresenta maior numero de alunos por docente e Tupanatinga.
+# Seu IDHM e 0.519.
+# Toda a identificacao foi feita atraves da visualizacao do data frama atraves do comando View().
 docentes_alunos_idh2[177,]
 #      IDHM   Codmun7    n_docentes  n_alunos  aluno_docente
 # 177 0.519    2615805      731      6986      9.556772
 
-# Teste do coeficiente de correlação linear de Pearson entre o número de
-# alunos por docente nos municípios do Estado e o IDH-M
+# Teste do coeficiente de correlacao linear de Pearson entre o numero de
+# alunos por docente nos municipios do Estado e o IDH-M
 
-
-# Correlacao é de -0.5057435
+# Correlacao e de -0.5057435
 cor(docentes_alunos_idh2$aluno_docente, docentes_alunos_idh2$IDHM)
 # [1] -0.5057435
+# O resultado negativo indica uma relacao inversa de correlacao.Ou seja, quanto
+# maior o numero de alunos por professor, menor o IDHM.
 
 # Teste de correlacao
 cor.test(docentes_alunos_idh2$aluno_docente, docentes_alunos_idh2$IDHM)
 # Temos um p-valor de 2.092e-13
 
-# Salvando a base de dados criada para o cálculo em formato .RData
+# Como o nosso p-valor e pequeno (.0000000000002092), quanto menor seu valor, 
+# maior confianca temos que existe uma relacao sistematica entre as duas 
+# variaveis. Alem disso, como nossa base de dados e grande, isso ajudou a 
+# diminuir o p-valor. 
+
+# Logo, podemos dizer que ha correlacao, porem negativa, entre o numero de
+# alunos por docente nos municipios do Estado e o IDH-M.
+
+# Salvando a base de dados criada para o calculo em formato .RData
 save (docentes_alunos_idh2, file = "docentes_alunos_idh2_censo_pnud_pe.RData")
 
-# Gráfico de dispersão entre numero de alunos por docente e e IDHM
+# Grafico de dispersao entre numero de alunos por docente e e IDHM
 ggplot(data = docentes_alunos_idh2, aes(x = aluno_docente, y = IDHM) ) +
   geom_point(color = "green", size = 2) +
-  labs(x = "Número de alunos por docente", y = "IDHM")
+  labs(x = "Numero de alunos por docente", y = "IDHM")
 
-# A partir do gráfico, vemos que existe uma concentracao de numero de alunos por 
+# A partir do grafico, vemos que existe uma concentracao de numero de alunos por 
 # docente em IDHM com valores entre 0,5 e 0,7. Sugerindo que quanto menos alunos
-# por docente, maior é o IDHM do município. Nos extremos verticais e horizontais 
+# por docente, maior e o IDHM do municipio. Nos extremos verticais e horizontais 
 # vemos valores mais discrepantes, com municipios com IDHM muito altos e numero 
 # de alunos por docente baixo. Enquanto que existem tambem os casos de numero 
 # de alunos por docente alto e um IDHM baixo.Ou seja, quanto menos alunos um 
